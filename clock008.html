@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>Glitch</title>
+
+<script type="text/javascript">
+function randomRange(minValue, maxValue){
+	var vMin = minValue;
+	var vMax = maxValue;
+	
+	return Math.floor((Math.random()*vMax)+vMin);
+}
+
+function showTime(){	
+	//Variables
+	var dateNow = new Date();
+	var h = dateNow.getHours();
+	var m = dateNow.getMinutes();
+	var s = dateNow.getSeconds();
+
+	if (h <= 9){
+		h = "0" + h;
+	}
+	if (m <= 9){
+		m = "0" + m;
+	}
+	if (s <= 9){
+		s = "0" + s;
+	}
+
+	
+	//m = str.slice(1,1);
+	var out = h + ":" + m + ":" + s;
+	var hou1 = h.toString().substr(0,1);
+	var hou2 = h.toString().substr(1,1);
+	var min1 = m.toString().substr(0,1);
+	var min2 = m.toString().substr(1,1);
+	var seg1 = s.toString().substr(0,1);
+	var seg2 = s.toString().substr(1,1);
+	document.getElementById("clock").innerHTML = out;
+
+	//------------------------------------------------
+
+	var canvas = document.getElementById("myCanvas");
+	var context = canvas.getContext("2d");
+	context.canvas.width  = window.innerWidth;
+	context.canvas.height = window.innerHeight;
+
+	var images = ["hou1", "hou2", "min1", "min2", "seg1", "seg2"];
+
+	for(i=0; i<=5; i++){
+		var img = new Image();
+		img.src = "images/" + eval(images[i]) + ".jpg";
+		context.drawImage(img, 250*i, 0);
+	}
+
+	//-------------------------------------------------
+	
+	//get image data
+	var  imgData = context.getImageData(0, 0, canvas.width, canvas.height);
+  
+	//get pixel data
+	var pixelData = imgData.data;
+	var length = pixelData.length;
+	var cols = imgData.width;
+    var rows = imgData.height;
+
+    for(var y=0; y<rows; y++) {
+
+		for(var x=0; x<cols; x++) {
+		
+			var r = pixelData[((cols * y) + x) * 4 +0];
+			var g = pixelData[((cols * y) + x) * 4 +1];
+			var b = pixelData[((cols * y) + x) * 4 +2];
+			var a = pixelData[((cols * y) + x) * 4 +3];
+
+			pixelData[((cols * y) + x) * 4 +0] = r;
+			pixelData[((cols * y) + x) * 4 +1] = g;
+			pixelData[((cols * y) + x) * 4 +2] = b;
+			pixelData[((cols * y) + x) * 4 +3] = b;
+
+		}
+	}
+
+	function slash(line, stroke, offset){
+
+		var start = canvas.width*line
+		var range = canvas.width*stroke;
+		var myArray = new Array();
+
+		for (var j=0; j<range; j+=4){
+			myArray[j] = pixelData[j+start];
+			myArray[j+1] = pixelData[j+start+1];
+			myArray[j+2] = pixelData[j+start+2];
+			myArray[j+3] = pixelData[j+start+3];
+		}
+
+		for(var n=0; n<range; n++){
+			pixelData[n+start+offset] = myArray[n];
+		}
+	  
+		//put image data back
+		context.putImageData(imgData, 0, 0);
+	}
+
+	slash(600,60,-192);
+
+	slash(800,20,-192);
+
+	slash(500,60,+192);
+	
+
+	//-------------------------------------------------
+
+
+	//refresh (1s)
+	setInterval(showTime, 2000);
+	//setTimeout(showTime, 5000);
+}
+
+
+//window.onload = showTime;
+
+
+</script>
+
+
+<!-- <body onLoad="showTime()" bgcolor="silver"> -->
+<body onLoad="showTime()" bgcolor="silver">
+
+<p id="clock">yep:</p>
+
+<canvas id="myCanvas"></canvas>
+
+</body>
+</html>

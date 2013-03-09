@@ -51,6 +51,8 @@ function showTime(){
 
 	var images = ["hou1", "hou2", "min1", "min2", "seg1", "seg2"];
 
+	context.clearRect(0, 0, canvas.width, canvas.height);
+
 	for(i=0; i<=5; i++){
 		var img = new Image();
 		img.src = "images/" + eval(images[i]) + ".jpg";

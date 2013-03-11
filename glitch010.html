@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<style> 
+    body {
+        margin: 0px;
+        padding: 0px;
+    }
+    
+    #myCanvas {
+        border: none;
+    }
+
+    #test1 {
+    	position: absolute;
+    	color: white;
+    	bottom: 0px;
+    	left: 0px;
+    }
+
+</style>
+
+<title>Glitch</title>
+
+<script type="text/javascript">
+function randomRange(minValue, maxValue){
+	var vMin = minValue;
+	var vMax = maxValue;
+	
+	return Math.floor((Math.random()*vMax)+vMin);
+}
+
+//drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh) takes an image, clips it to the rectangle (sx, sy, sw, sh), scales it to dimensions (dw, dh), and draws it on the canvas at coordinates (dx, dy)
+
+var canvas, context;
+var dateNow, h, m, s, out;
+
+function displayIMG_canvas() {
+	canvas = document.getElementById("myCanvas");
+	context = canvas.getContext("2d");
+	context.canvas.width  = window.innerWidth;
+	context.canvas.height = window.innerHeight;
+
+	showTime();
+
+}
+
+function callBG(){
+	//draw image on canvas  
+	var myIMG = new Image();
+	var myIMG_xPos = 0;
+	var myIMG_yPos = 0;
+	myIMG.src = "images/ca001.jpg";
+	context.drawImage(myIMG, myIMG_xPos, myIMG_yPos, canvas.width, canvas.height);
+
+	pixelate(25);
+	//drawImage(canvasCopy, 0, 0, canvasCopy.width, canvasCopy.height, 0, 0, canvas.width, canvas.height);
+}
+
+function showTime(){
+	context.canvas.width  = window.innerWidth;
+	context.canvas.height = window.innerHeight;	
+	//Variables
+	dateNow = new Date();
+	h = dateNow.getHours();
+	m = dateNow.getMinutes();
+	s = dateNow.getSeconds();
+	if (h <= 9){
+		h = "0" + h;
+	}
+	if (m <= 9){
+		m = "0" + m;
+	}
+	if (s <= 9){
+		s = "0" + s;
+	}
+	out = h + ":" + m + ":" + s;
+
+	callBG();
+
+	var wPos =	(canvas.width/100)*3;
+	var fSize = (450)*((canvas.width-wPos*2)/(300*6));
+	var hPos = ((canvas.height)/2)+(fSize/3);
+
+	context.font = 'bold ' + fSize +'px sans-serif';
+	context.fillStyle = 'white';
+	context.fillText(out, wPos, hPos);
+
+	callFX();
+
+	setTimeout(showTime, 1000);
+}
+  
+//----------------------------------------------------------------------------- pixelate();
+
+function pixelate(pixelSize){
+  	//get image data
+	var  imgData = context.getImageData(0, 0, canvas.width, canvas.height); 
+	//get pixel data
+	var pixelData = imgData.data; //array de pixels
+	var cols = imgData.width;
+    var rows = imgData.height;
+    //mosaic routine
+	for(var y=0; y<rows; y += pixelSize) {
+
+		for(var x=0; x<cols; x += pixelSize) {
+		
+			var r = pixelData[((cols * y) + x) * 4 +0];
+			var g = pixelData[((cols * y) + x) * 4 +1];
+			var b = pixelData[((cols * y) + x) * 4 +2];
+			var a = pixelData[((cols * y) + x) * 4 +3];
+
+			for(var n=0; n<pixelSize; n++){
+
+				for(var m = 0; m < pixelSize; m++) {
+
+					if(x + m < cols) {
+						pixelData[((cols * (y + n)) + (x + m)) * 4 + 0] = r;
+	                	pixelData[((cols * (y + n)) + (x + m)) * 4 + 1] = g;
+	                	pixelData[((cols * (y + n)) + (x + m)) * 4 + 2] = b;
+                	}
+	            }
+			}
+		}
+	}
+	//put image dat back
+	context.putImageData(imgData, 0, 0);
+}
+//----------------------------------------------------------------------------- slash();
+
+function slash(line, stroke, offset){
+	//get image data
+	var  imgData = context.getImageData(0, 0, canvas.width, canvas.height);
+	//get pixel data
+	var pixelData = imgData.data;
+	var alength = pixelData.length;
+	//set slash variables
+	var start = canvas.width*line
+	var range = canvas.width*stroke;
+	var myArray = new Array();
+	//slash routine
+	for (var j=0; j<range; j+=4){
+		myArray[j] = pixelData[j+start];
+		myArray[j+1] = pixelData[j+start+1];
+		myArray[j+2] = pixelData[j+start+2];
+		myArray[j+3] = pixelData[j+start+3];
+	}
+
+	for(var n=0; n<range; n++){
+		pixelData[n+start+offset] = myArray[n];
+	}
+	//put image data back
+	context.putImageData(imgData, 0, 0);
+}
+//-----------------------------------------------------------------------------	chroma();
+
+function chroma(displace, glitch, lPos, tPos, rPos, bPos){
+	//get image data
+	var  imgData = context.getImageData(0, 0, canvas.width, canvas.height);
+	//get pixel data
+	var pixelData = imgData.data;
+	var cols = imgData.width;
+    var rows = imgData.height;
+	
+	//selection
+	var lefPos = lPos;
+	var topPos = tPos;
+	var rigPos = rPos+100;
+	var	botPos = bPos+100;
+	var selWidth = imgData.width-rigPos;
+	var selHeight = imgData.height-botPos;
+
+	var selX = (cols-((imgData.width-lefPos)-selWidth));
+	var selY = (rows-((imgData.height-topPos)-selHeight));
+	
+	//chromatic aberration routine
+	for (var y = tPos; y < selY; y++) {
+		
+		for (var x = lPos; x < selX; x++) {
+
+			var r = pixelData[((cols * y) + x) * 4- (glitch-1) * (displace*20)];
+			var g = pixelData[((cols * y) + x) * 4 +1];
+			var b = pixelData[((cols * y) + x) * 4 +1 + (glitch-1) * (displace*20)];
+			var a = pixelData[((cols * y) + x) * 4 +3];
+	
+			var bw = r*.3 + g*.59 + b*.11;
+	
+			pixelData[((cols * y) + x) * 4 +0] = r;
+			pixelData[((cols * y) + x) * 4 +1] = g;
+			pixelData[((cols * y) + x) * 4 +2] = b;
+		}
+	}
+	//put image data back
+	context.putImageData(imgData, 0, 0);
+}
+
+//-----------------------------------------------------------------------------
+
+function callFX(){
+
+	//pixelate(randomRange(10,30));
+	slash(
+		randomRange(0,canvas.height*4),
+		randomRange(2,60),
+		-128);
+	slash(
+		randomRange(0,canvas.height*4),
+		randomRange(2,60),
+		60);
+
+	slash(600,60,-192);
+
+	if (randomRange(0,10)>8){
+		showTime();
+		pixelate(randomRange(20,30));
+	}
+
+	pixelate(4);
+
+	chroma(1, 0, 0, 0, 0, 0);
+
+}
+
+
+//document.getElementById('footer').style.visibility = "hidden";
+
+
+
+
+
+</script>
+
+
+</head>
+
+<body onLoad="displayIMG_canvas()">
+
+<canvas id="myCanvas"></canvas>
+
+<div id="test1">Test!!!!</div>
+
+<script type="text/javascript">
+
+
+function displayResult()
+{
+	document.getElementById("test1").style.visibility="hidden";
+	console.log("teste");
+}
+
+displayResult();
+</script>
+
+</body>
+</html>

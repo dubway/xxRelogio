@@ -73,10 +73,10 @@ function callTime(){
 	out = h + ":" + m + ":" + s;
 	//Make clock responsive
 	var wPos =	(canvas.width/100)*3;
-	var fSize = (450)*((canvas.width-wPos*2)/(300*6));
+	var fSize = (510)*((canvas.width-wPos*2)/(300*6));
 	var hPos = ((canvas.height)/2)+(fSize/3);
 	//Display time
-	context.font = 'bold ' + fSize +'px Revalia';
+	context.font = 'bold ' + fSize +'px Geo';
 	context.fillStyle = 'white';
 	context.fillText(out, wPos, hPos);
 
@@ -114,9 +114,9 @@ function callFX(){
 		}
 	}
 
-	pixelate(10);
+	//pixelate(10);
 
-	chroma(1, 0, 0, 0, 0, 0);
+	//chroma(1, 0, 0, 0, 0, 0);
 
 }
 

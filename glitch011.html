@@ -1,66 +1,88 @@
-/*
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 
-	-----------------------------------------------------------
-	Developed by Pedro Galvao & Bruna Calheiros - New York 2013
-	----------------------- justinti.me -----------------------
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-*/
+<style> 
+    body {
+        margin: 0px;
+        padding: 0px;
+    }
+    
+    #myCanvas {
+        border: none;
+    }
 
-//variables
+    #box {
+    	position: absolute;
+    	color: white;
+    	bottom: 0px;
+    	left: 0px;
+    	width: 100px;
+    	height: 100px;
+    	background-color: #000;
+    	visibility: visible;
+    	opacity: 0.5;
+		border-top: 3px solid #ccc;
+		border-bottom: 3px solid #ccc;
+		margin-top: 5.0em;
+    }
+
+    #box p {
+  		top: 4.7em;
+    }
+
+</style>
+
+<title>Glitch</title>
+
+<script type="text/javascript">
+
+var fSizeOut;
+
+function randomRange(minValue, maxValue){
+	var vMin = minValue;
+	var vMax = maxValue;
+	
+	return Math.floor((Math.random()*vMax)+vMin);
+}
+
+//drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh) takes an image, clips it to the rectangle (sx, sy, sw, sh), scales it to dimensions (dw, dh), and draws it on the canvas at coordinates (dx, dy)
+
 var canvas, context;
 var dateNow, h, m, s, out;
 
-//----------------------------------------------------------------------------- createCanvas(), display();
-
-function createCanvas() {
-	//Create Canvas
+function displayIMG_canvas() {
 	canvas = document.getElementById("myCanvas");
 	context = canvas.getContext("2d");
 	context.canvas.width  = window.innerWidth;
 	context.canvas.height = window.innerHeight;
 
-	//Call a function to display elements on canvas
-	display();
+	showTime();
 
 }
-
-function display(){
-	//Responsive Canvas Size
-	context.canvas.width  = window.innerWidth;
-	context.canvas.height = window.innerHeight;
-	
-	//Call Functions
-	callBG();
-	callTime();
-	callFX();
-
-	//Set Loop
-	setTimeout(display, 1000);
-
-}
-
-//----------------------------------------------------------------------------- callBG();
 
 function callBG(){
 	//draw image on canvas  
 	var myIMG = new Image();
 	var myIMG_xPos = 0;
 	var myIMG_yPos = 0;
-	//Set background image source
 	myIMG.src = "images/ca001.jpg";
 	context.drawImage(myIMG, myIMG_xPos, myIMG_yPos, canvas.width, canvas.height);
+
+	pixelate(25);
 	//drawImage(canvasCopy, 0, 0, canvasCopy.width, canvasCopy.height, 0, 0, canvas.width, canvas.height);
 }
 
-//----------------------------------------------------------------------------- callTime();
-
-function callTime(){
+function showTime(){
+	context.canvas.width  = window.innerWidth;
+	context.canvas.height = window.innerHeight;	
 	//Variables
 	dateNow = new Date();
 	h = dateNow.getHours();
 	m = dateNow.getMinutes();
 	s = dateNow.getSeconds();
-	//Check for single characters
 	if (h <= 9){
 		h = "0" + h;
 	}
@@ -71,93 +93,31 @@ function callTime(){
 		s = "0" + s;
 	}
 	out = h + ":" + m + ":" + s;
-	//Make clock responsive
+
+	callBG();
+
 	var wPos =	(canvas.width/100)*3;
 	var fSize = (450)*((canvas.width-wPos*2)/(300*6));
 	var hPos = ((canvas.height)/2)+(fSize/3);
-	//Display time
-	context.font = 'bold ' + fSize +'px Revalia';
+
+	context.font = 'bold ' + fSize +'px sans-serif';
 	context.fillStyle = 'white';
 	context.fillText(out, wPos, hPos);
 
+	callFX();
+	displayBox();
+
+	setTimeout(showTime, 1000);
+
+	fSizeOut = fSize;
+	console.log("fSizeOut inside: ", fSizeOut);
 }
 
-//----------------------------------------------------------------------------- callFX();
 
-function callFX(){
-
-	quad();
-
-	//pixelate(randomRange(10,30));
-	slash(
-		randomRange(0,canvas.height*4),
-		randomRange(2,60),
-		-128);
-	slash(
-		randomRange(0,canvas.height*4),
-		randomRange(2,60),
-		60);
-
-	slash(600,60,-192);
-
-	if (randomRange(0,10)>8){
-		callTime();
-		pixelate(randomRange(20,30));
-	}
-
-	if (randomRange(0,10)>8){
-		var s =30
-		var w = (canvas.height/s)*4;
-		for(n=0; n<w; n++){
-			var z = 100*n;
-			slash(n*s,s,z);
-		}
-	}
-
-	pixelate(10);
-
-	chroma(1, 0, 0, 0, 0, 0);
-
-}
-
-//----------------------------------------------------------------------------- quad();
-
-function quad(){
-	var myIMG = new Image();
-	myIMG.src = "images/ca001.jpg";
-
-	var cropW = 200;
-	var cropH = 250;
-
-	var posX = 0;
-	var posY = 0;
-	var scaleX = 0.25;
-	var scaleY = 0.25;
-
-	var cols = canvas.width/(cropW*scaleX);
-    var rows = canvas.height/(cropH*scaleY);
-
-
-
-	for(var y=0; y<rows; y++) {
-
-		for(var x=0; x<cols; x++) {
-
-	  		//var nX = cols/(cropW*scaleX);
-	  		var cropX = randomRange(0,canvas.width);
-				var cropY = randomRange(0,canvas.height);
-
-	  		if (randomRange(0,10)>7){
-		  		context.drawImage(myIMG,
-					cropX, cropY, cropW, cropH,
-					posX+(cropW*scaleX*x), posY+(cropH*scaleY*y), cropW*scaleX, cropH*scaleY
-				);
-	  		}
-
-		}
-	}
-}
+	console.log("fSizeOut outside: ", fSizeOut);
+	console.log("window.innerHeight: ", window.innerHeight);
   
+
 //----------------------------------------------------------------------------- pixelate();
 
 function pixelate(pixelSize){
@@ -263,9 +223,73 @@ function chroma(displace, glitch, lPos, tPos, rPos, bPos){
 
 //-----------------------------------------------------------------------------
 
-function randomRange(minValue, maxValue){
-	var vMin = minValue;
-	var vMax = maxValue;
-	
-	return Math.floor((Math.random()*vMax)+vMin);
+function callFX(){
+
+	//pixelate(randomRange(10,30));
+	slash(
+		randomRange(0,canvas.height*4),
+		randomRange(2,60),
+		-128);
+	slash(
+		randomRange(0,canvas.height*4),
+		randomRange(2,60),
+		60);
+
+	slash(600,60,-192);
+
+	if (randomRange(0,10)>8){
+		showTime();
+		pixelate(randomRange(20,30));
+	}
+
+	pixelate(4);
+
+	chroma(1, 0, 0, 0, 0, 0);
 }
+
+
+//----------------------------------------------------------------------------- displayBox();
+
+
+function displayBox(){
+
+	var boxHeight = 100;
+	var borderHeight = (context.canvas.height - fSizeOut)/2;
+	console.log("borderHeight: " + borderHeight);
+
+	if (borderHeight <= boxHeight) {
+		document.getElementById("box").style.visibility="hidden";
+		console.log("hide box!");
+	} 
+	else {
+		document.getElementById("box").style.visibility="visible";
+		console.log("show box");
+	}
+}
+
+</script>
+
+
+</head>
+
+<body onLoad="displayIMG_canvas()">
+
+<canvas id="myCanvas"></canvas>
+
+<div id="box">
+	<p>Test!!!!</p>
+</div>
+
+<script type="text/javascript">
+
+// function displayResult()
+// {
+// 	document.getElementById("test1").style.visibility="hidden";
+// 	console.log("teste");
+// }
+
+//displayResult();
+</script>
+
+</body>
+</html>

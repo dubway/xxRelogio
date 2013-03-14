@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>Glitch</title>
+
+<script type="text/javascript">
+//drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh) takes an image, clips it to the rectangle (sx, sy, sw, sh), scales it to dimensions (dw, dh), and draws it on the canvas at coordinates (dx, dy)
+
+function displayIMG_canvas() {
+	var canvas = document.getElementById("myCanvas");
+	var context = canvas.getContext("2d");
+	//context.canvas.width  = 924;
+	//context.canvas.height = 520;
+  
+	var myIMG = new Image();
+	myIMG.src = "images/ca001.jpg";
+	//draw image on canvas
+    context.drawImage(myIMG, 0, 0, myIMG.width, myIMG.height);
+  
+	//get image data
+	var  imgData = context.getImageData(0, 0, myIMG.width, myIMG.height);
+  
+	//get pixel data
+	var pixelData = imgData.data;
+	
+	var alength = pixelData.length;
+
+	var start = 80700;
+	var range = myIMG.width*60;
+	var myArray = new Array();
+
+	for (var j=0; j<range; j+=4){
+		myArray[j] = pixelData[j+start];
+		myArray[j+1] = pixelData[j+start+1];
+		myArray[j+2] = pixelData[j+start+2];
+		myArray[j+3] = pixelData[j+start+3];
+	}
+	
+	for(var i=0; i<alength; i+=4) {
+		var r = pixelData[i];
+		var g = pixelData[i+1];
+		var b = pixelData[i+2];
+		var a = pixelData[i+3];
+	
+		var glitch = r*.3 + g*.59 + b*.11;
+	
+		pixelData[i] = r;
+		pixelData[i+1] = g;
+		pixelData[i+2] = b;
+	
+	};
+
+	for(var n=0; n<range; n++){
+		pixelData[n+start*2] = myArray[n];
+	}
+  
+	//put image dat back
+	context.putImageData(imgData, 0, 0);
+	
+	//console.log(imgData);
+
+  
+  
+};
+
+
+</script>
+
+
+</head>
+
+<body onLoad="displayIMG_canvas()">
+
+<canvas id="myCanvas" width="924" height="520"></canvas>
+
+
+</body>
+</html>

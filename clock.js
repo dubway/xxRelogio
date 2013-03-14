@@ -76,7 +76,7 @@ function callTime(){
 	var fSize = (450)*((canvas.width-wPos*2)/(300*6));
 	var hPos = ((canvas.height)/2)+(fSize/3);
 	//Display time
-	context.font = 'bold ' + fSize +'px Revalia';
+	context.font = 'bold ' + fSize +'px sans-serif';
 	context.fillStyle = 'white';
 	context.fillText(out, wPos, hPos);
 

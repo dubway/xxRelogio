@@ -1,0 +1,19 @@
+body {
+        margin: 0px;
+        padding: 0px;
+    }
+    
+    #myCanvas {
+        border: none;
+    }
+
+    #box {
+    	position: absolute;
+    	color: #000000;
+    	background-color: #ffffff;
+    	bottom: 20px;
+    	right: 20px;
+    	width: 290px;
+    	height: 80px;
+    	padding: 10px;
+    }

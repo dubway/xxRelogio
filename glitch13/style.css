@@ -1,10 +1,12 @@
 body {
         margin: 0px;
         padding: 0px;
+        overflow: hidden;
     }
     
     #myCanvas {
         border: none;
+        letter-spacing: 0px; 
     }
 
     #box {
@@ -19,6 +21,12 @@ body {
     }
 
 @font-face {
-     font-family: Geo;
-     src: url('Geo.ttf');
-} 
+    font-family: 'Geo';
+    src: url('geo-webfont.eot');
+    src: url('geo-webfont.eot?#iefix') format('embedded-opentype'),
+         url('geo-webfont.woff') format('woff'),
+         url('geo-webfont.ttf') format('truetype'),
+         url('geo-webfont.svg#georegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}

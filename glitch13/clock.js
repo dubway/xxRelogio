@@ -77,6 +77,7 @@ function callTime(){
 	var hPos = ((canvas.height)/2)+(fSize/3);
 	//Display time
 	context.font = 'bold ' + fSize +'px Geo';
+	context.fillStyle.letterSpacing='1px';
 	context.fillStyle = 'white';
 	context.fillText(out, wPos, hPos);
 
@@ -114,7 +115,7 @@ function callFX(){
 		}
 	}
 
-	//pixelate(10);
+	//pixelate(4);
 
 	//chroma(1, 0, 0, 0, 0, 0);
 

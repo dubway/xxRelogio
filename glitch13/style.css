@@ -6,7 +6,6 @@ body {
     
     #myCanvas {
         border: none;
-        letter-spacing: 0px; 
     }
 
     #box {
@@ -22,11 +21,204 @@ body {
 
 @font-face {
     font-family: 'Geo';
-    src: url('geo-webfont.eot');
-    src: url('geo-webfont.eot?#iefix') format('embedded-opentype'),
-         url('geo-webfont.woff') format('woff'),
-         url('geo-webfont.ttf') format('truetype'),
-         url('geo-webfont.svg#georegular') format('svg');
+    src: url('geo-webfont.eot?') format('eot'), url('geo-webfont.woff') format('woff'), url('geo-webfont.ttf') format('truetype');
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Pixel2';
+    src: url('pixelsplitter-bold-webfont.eot');
+    src: url('pixelsplitter-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('pixelsplitter-bold-webfont.woff') format('woff'),
+         url('pixelsplitter-bold-webfont.ttf') format('truetype'),
+         url('pixelsplitter-bold-webfont.svg#pixelsplitterregular') format('svg');
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'digital';
+    src: url('fonts/digital-7-webfont.eot');
+    src: url('fonts/digital-7-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/digital-7-webfont.woff') format('woff'),
+         url('fonts/digital-7-webfont.ttf') format('truetype'),
+         url('fonts/digital-7-webfont.svg#digital-7regular') format('svg');
     font-weight: normal;
     font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'Estrogen';
+    src: url('fonts/estrog__-webfont.eot');
+    src: url('fonts/estrog__-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/estrog__-webfont.woff') format('woff'),
+         url('fonts/estrog__-webfont.ttf') format('truetype'),
+         url('fonts/estrog__-webfont.svg#estrogenroman') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+
+@font-face {
+    font-family: 'commodore';
+    src: url('fonts/commodore_rounded_v1.2-webfont.eot');
+    src: url('fonts/commodore_rounded_v1.2-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/commodore_rounded_v1.2-webfont.woff') format('woff'),
+         url('fonts/commodore_rounded_v1.2-webfont.ttf') format('truetype'),
+         url('fonts/commodore_rounded_v1.2-webfont.svg#commodore_64_roundedregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+@font-face {
+    font-family: 'postPixel';
+    src: url('fonts/post_pixel-7-webfont.eot');
+    src: url('fonts/post_pixel-7-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/post_pixel-7-webfont.woff') format('woff'),
+         url('fonts/post_pixel-7-webfont.ttf') format('truetype'),
+         url('fonts/post_pixel-7-webfont.svg#post_pixel-7regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'zx';
+    src: url('fonts/zx81-webfont.eot');
+    src: url('fonts/zx81-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/zx81-webfont.woff') format('woff'),
+         url('fonts/zx81-webfont.ttf') format('truetype'),
+         url('fonts/zx81-webfont.svg#zx81regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'ack';
+    src: url('fonts/acknowtt-webfont.eot');
+    src: url('fonts/acknowtt-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/acknowtt-webfont.woff') format('woff'),
+         url('fonts/acknowtt-webfont.ttf') format('truetype'),
+         url('fonts/acknowtt-webfont.svg#acknowledge_tt_brkregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'bombardier';
+    src: url('fonts/bombard_-webfont.eot');
+    src: url('fonts/bombard_-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/bombard_-webfont.woff') format('woff'),
+         url('fonts/bombard_-webfont.ttf') format('truetype'),
+         url('fonts/bombard_-webfont.svg#bombardierregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+@font-face {
+    font-family: 'adelp';
+    src: url('fonts/adelp___-webfont.eot');
+    src: url('fonts/adelp___-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/adelp___-webfont.woff') format('woff'),
+         url('fonts/adelp___-webfont.ttf') format('truetype'),
+         url('fonts/adelp___-webfont.svg#adelphi_plainregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'pixel7';
+    src: url('fonts/high_pixel-7-webfont.eot');
+    src: url('fonts/high_pixel-7-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/high_pixel-7-webfont.woff') format('woff'),
+         url('fonts/high_pixel-7-webfont.ttf') format('truetype'),
+         url('fonts/high_pixel-7-webfont.svg#high_pixel-7regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'm39';
+    src: url('fonts/m39-webfont.eot');
+    src: url('fonts/m39-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/m39-webfont.woff') format('woff'),
+         url('fonts/m39-webfont.ttf') format('truetype'),
+         url('fonts/m39-webfont.svg#m39_squarefutureregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+@font-face {
+    font-family: 'pixbasic';
+    src: url('fonts/pix-webfont.eot');
+    src: url('fonts/pix-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/pix-webfont.woff') format('woff'),
+         url('fonts/pix-webfont.ttf') format('truetype'),
+         url('fonts/pix-webfont.svg#pixbasic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'thin';
+    src: url('fonts/thin_pixel-7-webfont.eot');
+    src: url('fonts/thin_pixel-7-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/thin_pixel-7-webfont.woff') format('woff'),
+         url('fonts/thin_pixel-7-webfont.ttf') format('truetype'),
+         url('fonts/thin_pixel-7-webfont.svg#thin_pixe-l7regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'pxll';
+    src: url('fonts/pxll-webfont.eot');
+    src: url('fonts/pxll-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/pxll-webfont.woff') format('woff'),
+         url('fonts/pxll-webfont.ttf') format('truetype'),
+         url('fonts/pxll-webfont.svg#pxllregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'grixel';
+    src: url('fonts/kyrou_9_regular_bold-webfont.eot');
+    src: url('fonts/kyrou_9_regular_bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/kyrou_9_regular_bold-webfont.woff') format('woff'),
+         url('fonts/kyrou_9_regular_bold-webfont.ttf') format('truetype'),
+         url('fonts/kyrou_9_regular_bold-webfont.svg#grixel_kyrou_9_regular_boldRg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
 }

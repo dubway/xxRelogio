@@ -1,0 +1,32 @@
+body {
+        margin: 0px;
+        padding: 0px;
+        overflow: hidden;
+    }
+    
+    #myCanvas {
+        border: none;
+    }
+
+    #box {
+    	position: absolute;
+    	color: #000000;
+    	background-color: #ffffff;
+    	bottom: 20px;
+    	right: 20px;
+    	width: 290px;
+    	height: 80px;
+    	padding: 10px;
+    }
+
+@font-face {
+    font-family: 'pixbasic';
+    src: url('fonts/pix-webfont.eot');
+    src: url('fonts/pix-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/pix-webfont.woff') format('woff'),
+         url('fonts/pix-webfont.ttf') format('truetype'),
+         url('fonts/pix-webfont.svg#pixbasic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
